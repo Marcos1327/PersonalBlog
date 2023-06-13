@@ -1,5 +1,7 @@
 package com.personalblog.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +32,12 @@ public class UserController {
 	public ResponseEntity<User> getUserById(@PathVariable long userId) {
 		return ResponseEntity.ok().body(userService.getUserById(userId));
 	}
+	
+	@GetMapping
+	public ResponseEntity<List<User>> getAllUsers(){
+		return ResponseEntity.ok(userService.getAllUsers());
+	}
+	
+	
 
 }

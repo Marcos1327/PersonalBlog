@@ -1,6 +1,7 @@
 package com.personalblog.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class UserService {
 	
 	public User getUserById(long userId) {
 		var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+		
+		return user;
+	}
+	
+	public List<User> getAllUsers(){
+		var user = userRepository.findAll();
 		
 		return user;
 	}
