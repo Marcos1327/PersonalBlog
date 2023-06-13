@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +37,11 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<List<User>> getAllUsers(){
 		return ResponseEntity.ok(userService.getAllUsers());
+	}
+	
+	@PutMapping("/{userId}")
+	public ResponseEntity<User> updateUser(@PathVariable long userId, @RequestBody UserDTO userDTO) {
+		return ResponseEntity.ok(userService.updateUser(userId, userDTO));
 	}
 	
 	
