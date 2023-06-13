@@ -2,10 +2,14 @@ package com.personalblog.dtos;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class UserDTO {
 	
+	@NotBlank
 	private String name;
 	
+	@NotBlank
 	private String email;
 	
 	private LocalDate createDate;
