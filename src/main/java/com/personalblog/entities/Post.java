@@ -31,6 +31,10 @@ public class Post implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime createDate;
 	
+	@Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDateTime modifiedDate;
+	
 	public Post() {
 	}
 
@@ -72,6 +76,14 @@ public class Post implements Serializable {
 
 	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
+	}
+
+	public LocalDateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(LocalDateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 	
 	
