@@ -47,6 +47,12 @@ public class PostService {
 		return postRespository.save(post);
 	}
 	
+	@Transactional
+	public void delete(long postId) {
+		postRespository.findById(postId).orElseThrow(() -> new PostNotFoundException("Id not found"));
+		postRespository.deleteById(postId);
+	}
+	
 	
 
 }
