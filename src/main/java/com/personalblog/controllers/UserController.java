@@ -28,27 +28,27 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody @Valid UserDTO userDTO) { 
+	private ResponseEntity<User> createUser(@RequestBody @Valid UserDTO userDTO) { 
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userDTO));
 	}
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<User> getUserById(@PathVariable long userId) {
+	private ResponseEntity<User> getUserById(@PathVariable long userId) {
 		return ResponseEntity.ok().body(userService.getUserById(userId));
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<User>> getAllUsers(){
+	private ResponseEntity<List<User>> getAllUsers(){
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 	
 	@PutMapping("/{userId}")
-	public ResponseEntity<User> updateUser(@PathVariable long userId, @RequestBody @Valid UserDTO userDTO) {
+	private ResponseEntity<User> updateUser(@PathVariable long userId, @RequestBody @Valid UserDTO userDTO) {
 		return ResponseEntity.ok(userService.updateUser(userId, userDTO));
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<Void> deleteUserById(@PathVariable long userId) {
+	private ResponseEntity<Void> deleteUserById(@PathVariable long userId) {
 		userService.deleteUser(userId);
 		return ResponseEntity.ok().build();
 	}
