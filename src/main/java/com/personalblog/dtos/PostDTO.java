@@ -1,7 +1,5 @@
 package com.personalblog.dtos;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
 
 public class PostDTO {
@@ -15,7 +13,6 @@ public class PostDTO {
 	@NotBlank
 	private String category;
 	
-	private LocalDateTime createDate;
 
 	public String getTitle() {
 		return title;
@@ -40,16 +37,5 @@ public class PostDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
-	public LocalDateTime getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(LocalDateTime createDate) {
-		this.createDate = createDate;
-	}
-	
-	
-	
 
 }
