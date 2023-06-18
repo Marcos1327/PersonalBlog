@@ -13,6 +13,8 @@ public class PostDTO {
 	@NotBlank
 	private String category;
 	
+	private UserDTO user;
+	
 
 	public String getTitle() {
 		return title;
@@ -36,6 +38,14 @@ public class PostDTO {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 
 }
