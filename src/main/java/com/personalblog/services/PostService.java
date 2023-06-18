@@ -9,8 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.personalblog.dtos.PostDTO;
 import com.personalblog.entities.Post;
+import com.personalblog.entities.User;
 import com.personalblog.handlers.PostNotFoundException;
+import com.personalblog.handlers.UserNotFoundException;
+import com.personalblog.mapper.PostMapper;
+import com.personalblog.mapper.UserMapper;
 import com.personalblog.repositories.PostRespository;
+import com.personalblog.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -20,12 +25,21 @@ public class PostService {
 	@Autowired
 	private PostRespository postRespository;
 	
+	@Autowired
+	private UserRepository userRespository;
+	
 	@Transactional
 	public Post create(PostDTO postDTO) {
 		var postModel = new Post();
+		var userModel = new User();
+		
+		long user = postDTO.getUser().getId();
+		userModel = userRespository.findById(user).orElseThrow(() -> new UserNotFoundException("User not found"));
+		
 		postModel.setId(null);
 		postModel.setCreateDate(LocalDateTime.now());
 		postModel.setModifiedDate(LocalDateTime.now());
+		postModel.setUser(userModel);
 		BeanUtils.copyProperties(postDTO, postModel);
 		return postRespository.save(postModel);
 	}

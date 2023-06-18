@@ -58,5 +58,4 @@ public class UserService {
 		 userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
 	     userRepository.deleteById(id);
 	}
-
 }

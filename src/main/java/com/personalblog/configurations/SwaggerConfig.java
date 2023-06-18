@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -45,6 +44,11 @@ public class SwaggerConfig {
 		            .code(403)
 		            .message("forbidden!")
 		            .build());
+			    
+			    messages.add(new ResponseMessageBuilder()
+			    	.code(201)
+			    	.message("created")
+			    	.build());
 			    
 	    return messages;
 	}
