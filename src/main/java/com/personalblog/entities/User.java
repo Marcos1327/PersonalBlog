@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class User implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime createDate;
 	
-	@OneToMany(mappedBy = "user", orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
 	@JsonIgnore
 	private List<Post> posts;
 	
