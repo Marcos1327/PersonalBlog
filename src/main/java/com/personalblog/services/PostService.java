@@ -1,5 +1,6 @@
 package com.personalblog.services;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -12,16 +13,15 @@ import com.personalblog.entities.Post;
 import com.personalblog.entities.User;
 import com.personalblog.handlers.PostNotFoundException;
 import com.personalblog.handlers.UserNotFoundException;
-import com.personalblog.mapper.PostMapper;
-import com.personalblog.mapper.UserMapper;
 import com.personalblog.repositories.PostRespository;
 import com.personalblog.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
-public class PostService {
-	
+public class PostService implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private PostRespository postRespository;
 	
