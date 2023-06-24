@@ -37,6 +37,10 @@ public class User implements Serializable {
 	@JsonIgnore
 	private List<Post> posts;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comment> comments;
+	
 	public User() {
 	}
 
@@ -79,5 +83,15 @@ public class User implements Serializable {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	
 
 }

@@ -34,7 +34,7 @@ public class PostService implements Serializable {
 		var postModel = new Post();
 		var category = categoryService.getById(postDTO.getCategory().getId());
 		var userModel = userService.getUserById(postDTO.getUser().getId());
-
+				
 		postModel.setId(null);
 		postModel.setCreateDate(LocalDateTime.now());
 		postModel.setModifiedDate(LocalDateTime.now());
@@ -50,6 +50,7 @@ public class PostService implements Serializable {
 	}
 	
 	public List<Post> getAllByUserId(long userId) {
+		
 		var user = userService.getUserById(userId);
 		
 		return user.getPosts();
@@ -72,5 +73,5 @@ public class PostService implements Serializable {
 	public void delete(long postId) {
 		postRespository.deleteById(postId);
 	}
-
+	
 }

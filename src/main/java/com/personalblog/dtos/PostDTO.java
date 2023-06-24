@@ -1,5 +1,7 @@
 package com.personalblog.dtos;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 
 public class PostDTO {
@@ -13,6 +15,8 @@ public class PostDTO {
 	private CategoryDTO category;
 	
 	private UserDTO user;
+	
+	private List<CommentDTO> comment;
 	
 
 	public String getTitle() {
@@ -46,5 +50,15 @@ public class PostDTO {
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
+
+	public List<CommentDTO> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<CommentDTO> comment) {
+		this.comment = comment;
+	}
+	
+	
 
 }
