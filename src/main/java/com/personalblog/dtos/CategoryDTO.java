@@ -1,11 +1,18 @@
 package com.personalblog.dtos;
 
-import jakarta.validation.constraints.NotBlank;
-
 public class CategoryDTO {
 	
-	@NotBlank
+	private Long id;
+	
 	private String description;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getDescription() {
 		return description;

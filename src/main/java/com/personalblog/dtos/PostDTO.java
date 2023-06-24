@@ -1,7 +1,5 @@
 package com.personalblog.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.validation.constraints.NotBlank;
 
 public class PostDTO {
@@ -12,10 +10,8 @@ public class PostDTO {
 	@NotBlank
 	private String content;
 	
-	@NotBlank
-	private String category;
+	private CategoryDTO category;
 	
-	@JsonIgnore
 	private UserDTO user;
 	
 
@@ -35,11 +31,11 @@ public class PostDTO {
 		this.content = content;
 	}
 
-	public String getCategory() {
+	public CategoryDTO getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(CategoryDTO category) {
 		this.category = category;
 	}
 
