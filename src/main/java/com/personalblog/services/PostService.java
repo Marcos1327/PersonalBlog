@@ -52,7 +52,6 @@ public class PostService implements Serializable {
 		var user = userRespository.findById(userId).orElseThrow(() -> new UserNotFoundException("Id not found: " + userId));
 		
 		return user.getPosts();
-		
 	}
 
 	@Transactional
