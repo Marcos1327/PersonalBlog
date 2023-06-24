@@ -1,6 +1,7 @@
 package com.personalblog.services;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,39 @@ public class CommentService {
 		
 		comment.setId(null);
 		comment.setCreateDate(LocalDateTime.now());
+		comment.setModifiedDate(LocalDateTime.now());
 		comment.setPost(postModel);
 		comment.setUser(userModel);
 		
 		BeanUtils.copyProperties(commentDTO, comment);
 		
 		return commentRepository.save(comment);
+	}
+	
+	@Transactional
+	public Comment update(CommentDTO commentDTO) {
+		Optional<Comment> comment0 = commentRepository.findById(commentDTO.getId());
 		
+		if (comment0.isEmpty()) {
+			throw new BussinesNotFoundException("CommentId not Found ");
+		}
+		var comment = new Comment();
+		
+		comment = comment0.get();
+		comment.setModifiedDate(LocalDateTime.now());
+		BeanUtils.copyProperties(commentDTO, comment);
+		
+		return commentRepository.save(comment);
 	}
 	
 	@Transactional
 	public void delete(long commentId) {
 		commentRepository.findById(commentId).orElseThrow(() -> new BussinesNotFoundException("CommentId not found " + commentId));
 		commentRepository.deleteById(commentId);
-		
+	}
+	
+	public Comment getById(long commentId) {
+		return commentRepository.findById(commentId).orElseThrow(() -> new BussinesNotFoundException("Id not found " + commentId));
 	}
 
 }

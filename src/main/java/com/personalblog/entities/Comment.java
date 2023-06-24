@@ -33,15 +33,18 @@ public class Comment implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime createDate;
 	
+	@Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDateTime modifiedDate;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id", nullable = false)
 	@JsonIgnore
 	private Post post;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
 	
 	public Comment() {
 	}
@@ -85,6 +88,16 @@ public class Comment implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public LocalDateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(LocalDateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	
+	
 	
 	
 
