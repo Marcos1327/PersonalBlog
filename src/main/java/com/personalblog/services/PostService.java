@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import com.personalblog.dtos.PostDTO;
 import com.personalblog.entities.Post;
 import com.personalblog.handlers.PostNotFoundException;
-import com.personalblog.handlers.UserNotFoundException;
 import com.personalblog.repositories.PostRespository;
-import com.personalblog.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -26,19 +24,22 @@ public class PostService implements Serializable {
 	private PostRespository postRespository;
 
 	@Autowired
-	private UserRepository userRespository;
+	private UserService userService;
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	@Transactional
 	public Post create(PostDTO postDTO) {
 		var postModel = new Post();
-
-		long user = postDTO.getUser().getId();
-		var userModel = userRespository.findById(user).orElseThrow(() -> new UserNotFoundException("User not found"));
+		var category = categoryService.getById(postDTO.getCategory().getId());
+		var userModel = userService.getUserById(postDTO.getUser().getId());
 
 		postModel.setId(null);
 		postModel.setCreateDate(LocalDateTime.now());
 		postModel.setModifiedDate(LocalDateTime.now());
 		postModel.setUser(userModel);
+		postModel.setCategory(category);
 		BeanUtils.copyProperties(postDTO, postModel);
 		
 		return postRespository.save(postModel);
@@ -49,10 +50,9 @@ public class PostService implements Serializable {
 	}
 	
 	public List<Post> getAllByUserId(long userId) {
-		var user = userRespository.findById(userId).orElseThrow(() -> new UserNotFoundException("Id not found: " + userId));
+		var user = userService.getUserById(userId);
 		
 		return user.getPosts();
-		
 	}
 
 	@Transactional

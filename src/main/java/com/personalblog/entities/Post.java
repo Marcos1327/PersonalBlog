@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +27,9 @@ public class Post implements Serializable {
 	
 	private String content;
 	
-	private String category;
+	@ManyToOne
+	@JoinColumn(name = "id_category", nullable = false)
+	private Category category;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
@@ -42,6 +42,7 @@ public class Post implements Serializable {
 	@Column(nullable = false)
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime modifiedDate;
+	
 	
 	public Post() {
 	}
@@ -70,11 +71,11 @@ public class Post implements Serializable {
 		this.content = content;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
