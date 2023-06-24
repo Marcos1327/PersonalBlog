@@ -28,9 +28,6 @@ public class PostService implements Serializable {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
-	@Autowired
-	private CommentService commentService;
 
 	@Transactional
 	public Post create(PostDTO postDTO) {
