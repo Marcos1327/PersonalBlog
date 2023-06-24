@@ -1,5 +1,7 @@
 package com.personalblog.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.NotBlank;
 
 public class PostDTO {
@@ -13,6 +15,7 @@ public class PostDTO {
 	@NotBlank
 	private String category;
 	
+	@JsonIgnore
 	private UserDTO user;
 	
 

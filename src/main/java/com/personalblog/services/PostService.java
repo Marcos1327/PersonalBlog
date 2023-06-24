@@ -2,6 +2,7 @@ package com.personalblog.services;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -45,6 +46,13 @@ public class PostService implements Serializable {
 
 	public Post getById(long postId) {
 		return postRespository.findById(postId).orElseThrow(() -> new PostNotFoundException("Id not found"));
+	}
+	
+	public List<Post> getAllByUserId(long userId) {
+		var user = userRespository.findById(userId).orElseThrow(() -> new UserNotFoundException("Id not found: " + userId));
+		
+		return user.getPosts();
+		
 	}
 
 	@Transactional
