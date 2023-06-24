@@ -1,5 +1,7 @@
 package com.personalblog.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +46,10 @@ public class PostController {
 	public ResponseEntity<Void> delete(@PathVariable long postId) {
 		postService.delete(postId);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{userId}/posts")
+	public ResponseEntity<List<Post>> getPosts(@PathVariable long userId) {
+		return ResponseEntity.ok(postService.getAllByUserId(userId));
 	}
 }

@@ -31,7 +31,6 @@ public class UserService {
 	}
 	
 	public User getUserById(long userId) {
-		
 		var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
 		return user;
 	}
