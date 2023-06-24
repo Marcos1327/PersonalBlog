@@ -69,5 +69,12 @@ public class CommentService {
 	public Comment getById(long commentId) {
 		return commentRepository.findById(commentId).orElseThrow(() -> new BussinesNotFoundException("Id not found " + commentId));
 	}
+	
+	public Long countByPost(long postId) {
+		var post = postService.getById(postId);
+		
+		return commentRepository.countByPost(post);
+		
+	}
 
 }

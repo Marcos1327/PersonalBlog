@@ -7,5 +7,5 @@ import com.personalblog.entities.Post;
 
 @Repository
 public interface PostRespository extends JpaRepository<Post, Long> {
-
+	
 }
