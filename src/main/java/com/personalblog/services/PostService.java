@@ -28,16 +28,16 @@ public class PostService implements Serializable {
 	
 	@Autowired
 	private CategoryService categoryService;
-//	
-//	@Autowired
-//	private CommentService commentService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	@Transactional
 	public Post create(PostDTO postDTO) {
 		var postModel = new Post();
 		var category = categoryService.getById(postDTO.getCategory().getId());
 		var userModel = userService.getUserById(postDTO.getUser().getId());
-
+				
 		postModel.setId(null);
 		postModel.setCreateDate(LocalDateTime.now());
 		postModel.setModifiedDate(LocalDateTime.now());
@@ -53,6 +53,7 @@ public class PostService implements Serializable {
 	}
 	
 	public List<Post> getAllByUserId(long userId) {
+		
 		var user = userService.getUserById(userId);
 		
 		return user.getPosts();
