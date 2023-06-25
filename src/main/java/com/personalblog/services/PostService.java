@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.personalblog.dtos.PostDTO;
 import com.personalblog.entities.Post;
-import com.personalblog.handlers.PostNotFoundException;
+import com.personalblog.handlers.ObjectNotFoundHandler;
 import com.personalblog.repositories.PostRespository;
 
 import jakarta.transaction.Transactional;
@@ -46,7 +46,7 @@ public class PostService implements Serializable {
 	}
 
 	public Post getById(long postId) {
-		return postRespository.findById(postId).orElseThrow(() -> new PostNotFoundException("Id not found"));
+		return postRespository.findById(postId).orElseThrow(() -> new ObjectNotFoundHandler("Id not found " + postId));
 	}
 	
 	public List<Post> getAllByUserId(long userId) {
@@ -58,14 +58,12 @@ public class PostService implements Serializable {
 
 	@Transactional
 	public Post update(long postId, PostDTO postDTO) {
-		Optional<Post> post0 = postRespository.findById(postId);
-
-		if (post0.isEmpty()) {
-			throw new PostNotFoundException("Id not found");
-		}
-		var post = post0.get();
+		Optional<Post> optionalPost = postRespository.findById(postId);
+		
+		Post post = optionalPost.orElseThrow(() -> new ObjectNotFoundHandler("PostId not found " + postId));
 		post.setModifiedDate(LocalDateTime.now());
 		BeanUtils.copyProperties(postDTO, post);
+		
 		return postRespository.save(post);
 	}
 
