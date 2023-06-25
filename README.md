@@ -1,4 +1,3 @@
-
 # Personal Blog (desenvolvimento)
 
 O Blog Pessoal é uma aplicação web desenvolvida em Java com o framework Spring Boot. O projeto permite aos usuários criar postagens, visualizar e interagir com elas. O objetivo principal é fornecer uma plataforma simples para compartilhamento de conteúdo.
