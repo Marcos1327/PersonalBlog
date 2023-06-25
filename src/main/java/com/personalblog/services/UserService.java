@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.personalblog.dtos.UserDTO;
 import com.personalblog.entities.User;
-import com.personalblog.handlers.UserNotFoundException;
+import com.personalblog.handlers.ObjectNotFoundHandler;
 import com.personalblog.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -31,7 +31,7 @@ public class UserService {
 	}
 	
 	public User getUserById(long userId) {
-		var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+		var user = userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundHandler("User not found " + userId));
 		return user;
 	}
 	
@@ -42,19 +42,20 @@ public class UserService {
 	}
 	
 	@Transactional
-	public User updateUser(long id, UserDTO userDTO) {
-		Optional<User> userO = userRepository.findById(id);
-		if(userO.isEmpty()) {
-			throw new UserNotFoundException("UserNotFound");
-		}
-		var user = userO.get();
+	public User updateUser(long userId, UserDTO userDTO) {
+		Optional<User> optionalUser = userRepository.findById(userId);
+		
+		User user = optionalUser.orElseThrow(() -> new ObjectNotFoundHandler("UserId not found " + userId));
 		BeanUtils.copyProperties(userDTO, user);
+		
 		return userRepository.save(user);
+				
 	}
 	
+	
 	@Transactional
-	public void deleteUser(long id) {
-		 userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
-	     userRepository.deleteById(id);
+	public void deleteUser(long userId) {
+		 userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundHandler("User not found " + userId));
+	     userRepository.deleteById(userId);
 	}
 }

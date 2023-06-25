@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.personalblog.dtos.CategoryDTO;
 import com.personalblog.entities.Category;
-import com.personalblog.handlers.BussinesNotFoundException;
+import com.personalblog.handlers.ObjectNotFoundHandler;
 import com.personalblog.repositories.CategoryRepository;
 
 @Service
@@ -22,7 +22,7 @@ public class CategoryService {
 	}
 	
 	public Category getById(Long categoryId) {
-		return categoryRepository.findById(categoryId).orElseThrow(() -> new BussinesNotFoundException("Category Id not found: " + categoryId));
+		return categoryRepository.findById(categoryId).orElseThrow(() -> new ObjectNotFoundHandler("Category Id not found: " + categoryId));
 	}
 	
 	public Category create(CategoryDTO categoryDTO) {

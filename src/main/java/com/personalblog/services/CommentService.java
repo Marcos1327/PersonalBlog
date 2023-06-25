@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.personalblog.dtos.CommentDTO;
 import com.personalblog.entities.Comment;
-import com.personalblog.handlers.BussinesNotFoundException;
+import com.personalblog.handlers.ObjectNotFoundHandler;
 import com.personalblog.repositories.CommentRepository;
 
 import jakarta.transaction.Transactional;
@@ -46,28 +46,24 @@ public class CommentService {
 	
 	@Transactional
 	public Comment update(CommentDTO commentDTO) {
+		
 		Optional<Comment> comment0 = commentRepository.findById(commentDTO.getId());
 		
-		if (comment0.isEmpty()) {
-			throw new BussinesNotFoundException("CommentId not Found ");
-		}
-		var comment = new Comment();
-		
-		comment = comment0.get();
+		Comment comment = comment0.orElseThrow(() ->  new ObjectNotFoundHandler("CommentId not found " + commentDTO.getId()));
 		comment.setModifiedDate(LocalDateTime.now());
 		BeanUtils.copyProperties(commentDTO, comment);
 		
 		return commentRepository.save(comment);
 	}
-	
+		
 	@Transactional
 	public void delete(long commentId) {
-		commentRepository.findById(commentId).orElseThrow(() -> new BussinesNotFoundException("CommentId not found " + commentId));
+		commentRepository.findById(commentId).orElseThrow(() -> new ObjectNotFoundHandler("Comment Id not found " + commentId));
 		commentRepository.deleteById(commentId);
 	}
 	
 	public Comment getById(long commentId) {
-		return commentRepository.findById(commentId).orElseThrow(() -> new BussinesNotFoundException("Id not found " + commentId));
+		return commentRepository.findById(commentId).orElseThrow(() -> new ObjectNotFoundHandler("Comment Id not found" + commentId));
 	}
 	
 	public Long countByPost(long postId) {
